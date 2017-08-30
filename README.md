@@ -18,7 +18,7 @@ https://arxiv.org/abs/1407.1114
 
 ## Installation
 
-```
+``` r
 install.packages("devtools")
 devtools::install_github("ChristofSeiler/curvature")
 ```
