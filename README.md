@@ -25,4 +25,9 @@ devtools::install_github("ChristofSeiler/curvature")
 
 ## Getting Started
 
-TODO
+``` r
+library("curvature")
+fit = rstan::sampling(...)
+res = curvature(fit)
+summary(res)
+```
