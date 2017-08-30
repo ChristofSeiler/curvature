@@ -18,14 +18,14 @@ https://arxiv.org/abs/1407.1114
 
 ## Installation
 
-``` r
+```r
 install.packages("devtools")
 devtools::install_github("ChristofSeiler/curvature")
 ```
 
 ## Getting Started
 
-``` r
+```r
 library("curvature")
 fit = rstan::sampling(...)
 res = curvature(fit)
