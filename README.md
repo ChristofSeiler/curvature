@@ -30,4 +30,5 @@ library("curvature")
 fit = rstan::sampling(...)
 res = curvature(fit)
 summary(res)
+plot(res)
 ```
