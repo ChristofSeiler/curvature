@@ -20,7 +20,7 @@ https://arxiv.org/abs/1407.1114
 
 ```
 install.packages("devtools")
-devtools::install_github("ChristofSeiler/braincog")
+devtools::install_github("ChristofSeiler/curvature")
 ```
 
 ## Getting Started
