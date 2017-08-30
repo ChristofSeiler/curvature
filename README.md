@@ -1,4 +1,4 @@
-# R package `curvature`
+# R Package `curvature`
 
 This package implements a simulatio-based approach to our NIPS paper:
 
