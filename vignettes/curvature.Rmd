@@ -1,0 +1,65 @@
+---
+title: "Curvature Vignette"
+author: "Christof Seiler"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+This vignette shows how to calculate sectional curvature from an `rstan` object for the multivariate $t$ distribution with 50 degrees of freedom in 100 dimensions.
+
+We need these packages.
+
+```{r}
+library("rstan")
+library("curvature")
+```
+
+## Stan Model
+
+Stan code for $t$ distribution.
+
+```{r}
+ocode <- "
+  data {
+    int<lower=1> nu;
+    int<lower=1> K;
+    vector[K] mu;
+    cov_matrix[K] Sigma;
+  } 
+  parameters {
+    vector[K] y;
+  } 
+  model {
+    y ~ multi_student_t(nu, mu, Sigma);
+  } 
+"
+model = stan_model(model_code = ocode)
+```
+
+## Simulation
+
+Prepare parameters for simulations.
+
+```{r}
+d = 100 # dimension of distribution
+mu = rep(0,d) # mean
+Sigma = diag(1,d) # covariance
+nu = 50 # degrees of freedom
+T0 = 1000 # burn-in
+T = 100 # after burn-in
+noOfSecs = 1000
+fit = sampling(model, data = list(nu = nu,
+                                  mu = mu, 
+                                  Sigma = Sigma, 
+                                  K = length(mu)),
+               chains = 1, 
+               iter = T+T0, 
+               warmup = T0,
+               algorithm = "HMC",
+               control = list(metric = "unit_e"))
+res = curvature(fit)
+```
