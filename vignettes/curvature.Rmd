@@ -22,7 +22,7 @@ library("curvature")
 
 Stan code for $t$ distribution.
 
-```{r warning=FALSE,message=FALSE}
+```{r echo=FALSE}
 model_code <- "
   data {
     int<lower=1> nu;
@@ -44,7 +44,7 @@ model = stan_model(model_code = model_code)
 
 Prepare parameters for simulations.
 
-```{r}
+```{r fig.width=7,fig.height=5}
 d = 100 # dimension of distribution
 mu = rep(0,d) # mean
 Sigma = diag(1,d) # covariance
