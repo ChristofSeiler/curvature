@@ -32,3 +32,13 @@ res = curvature(fit)
 summary(res)
 plot(res)
 ```
+
+## Vignette
+
+A vignette is avaible [here]() or you can build it yourself.
+
+```r
+devtools::install_github("ChristofSeiler/curvature", build_vignettes=TRUE)
+library("curvature")
+vignette("curvature", package="curvature")
+```
