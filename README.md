@@ -38,7 +38,7 @@ plot(res)
 A vignette is avaible [here]() or you can build it yourself.
 
 ```r
-install_github("ChristofSeiler/curvature", build_vignettes=TRUE)
+devtools::install_github("ChristofSeiler/curvature", build_vignettes=TRUE)
 library("curvature")
 vignette("curvature", package="curvature")
 ```
