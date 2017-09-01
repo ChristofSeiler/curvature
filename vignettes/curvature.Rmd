@@ -44,7 +44,7 @@ model = stan_model(model_code = model_code)
 
 Prepare parameters for simulations.
 
-```{r}
+```{r fig.width=5}
 d = 100 # dimension of distribution
 mu = rep(0,d) # mean
 Sigma = diag(1,d) # covariance
@@ -66,4 +66,10 @@ fit = sampling(model,
 res = curvature(fit = fit)
 plot(res)
 summary(res)
+```
+
+## Session Info
+
+```{r}
+sessionInfo()
 ```
