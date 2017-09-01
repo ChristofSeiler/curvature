@@ -4,7 +4,7 @@
 \alias{plot.curvature}
 \title{Plot curvature object.}
 \usage{
-\method{plot}{curvature}(fit)
+\method{plot}{curvature}(res)
 }
 \description{
 Plot curvature object.

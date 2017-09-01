@@ -3,5 +3,8 @@
 S3method(plot,curvature)
 S3method(summary,curvature)
 export(curvature)
+import(ggplot2)
 import(numDeriv)
+import(parallel)
 import(rstan)
+import(tibble)

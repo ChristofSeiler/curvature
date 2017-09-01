@@ -13,7 +13,7 @@ This vignette shows how to calculate sectional curvature from an `rstan` object 
 
 We need these packages.
 
-```{r}
+```{r warning=FALSE,message=FALSE}
 library("rstan")
 library("curvature")
 ```
@@ -22,8 +22,8 @@ library("curvature")
 
 Stan code for $t$ distribution.
 
-```{r}
-ocode <- "
+```{r warning=FALSE,message=FALSE}
+model_code <- "
   data {
     int<lower=1> nu;
     int<lower=1> K;
@@ -37,7 +37,7 @@ ocode <- "
     y ~ multi_student_t(nu, mu, Sigma);
   } 
 "
-model = stan_model(model_code = ocode)
+model = stan_model(model_code = model_code)
 ```
 
 ## Simulation
@@ -52,14 +52,18 @@ nu = 50 # degrees of freedom
 T0 = 1000 # burn-in
 T = 100 # after burn-in
 noOfSecs = 1000
-fit = sampling(model, data = list(nu = nu,
-                                  mu = mu, 
-                                  Sigma = Sigma, 
-                                  K = length(mu)),
+data = list(nu = nu,
+            mu = mu, 
+            Sigma = Sigma, 
+            K = d)
+fit = sampling(model, 
+               data = data,
                chains = 1, 
                iter = T+T0, 
                warmup = T0,
                algorithm = "HMC",
                control = list(metric = "unit_e"))
-res = curvature(fit)
+res = curvature(fit = fit)
+plot(res)
+summary(res)
 ```
