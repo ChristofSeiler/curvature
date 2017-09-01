@@ -35,7 +35,7 @@ plot(res)
 
 ## Vignette
 
-A vignette is avaible [here](curvature.html) or you can build it yourself.
+A compiled vignette is avaible [here](christofseiler.github.io/vignettes/curvature.html). To build it yourself, we need to install the package again with the `build_vignettes` enabled.
 
 ```r
 devtools::install_github("ChristofSeiler/curvature", build_vignettes=TRUE)
