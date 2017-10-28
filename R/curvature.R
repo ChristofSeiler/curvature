@@ -5,7 +5,9 @@
 #' @import parallel
 #' @export
 #'
-curvature = function(fit,num_cores = 4) {
+curvature = function(fit,
+                     num_secs = 1000,
+                     num_cores = 4) {
 
   # extract  sectional curvature
   samples = rstan::extract(fit,permuted = FALSE)
@@ -16,13 +18,13 @@ curvature = function(fit,num_cores = 4) {
   # compute gradient and Hessian in parallel
   func = function(x) { -log_prob(fit, x) }
   U = apply(q,1,function(x) func(x))
-  take_time = system.time( grad(func,q[1,]) )
+  take_time = system.time( grad(func,q[round(nrow(q)/2),]) )
   message("computing gradients will take approx. ",
           round(take_time["elapsed"]*nrow(q)/num_cores),
           " secs.")
   grad_U = mclapply(1:nrow(q),function(t) { grad(func,q[t,]) },
                     mc.cores =  num_cores)
-  take_time = system.time( hessian(func,q[1,]) )
+  take_time = system.time( hessian(func,q[round(nrow(q)/2),]) )
   message("computing Hessians will take approx. ",
           round(take_time["elapsed"]*nrow(q)/num_cores),
           " secs.")
@@ -37,7 +39,7 @@ curvature = function(fit,num_cores = 4) {
 
   # collect
   sec = sapply(1:length(grad_U),function(t) {
-    secs = replicate(noOfSecs,
+    secs = replicate(num_secs,
                      sectional_curvature(grad_U[[t]],hessian_U[[t]],K[t]))
     mean(secs)
   })

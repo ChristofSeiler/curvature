@@ -51,7 +51,6 @@ Sigma = diag(1,d) # covariance
 nu = 50 # degrees of freedom
 T0 = 1000 # burn-in
 T = 100 # after burn-in
-noOfSecs = 1000
 data = list(nu = nu,
             mu = mu, 
             Sigma = Sigma, 

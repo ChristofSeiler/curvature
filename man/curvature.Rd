@@ -4,7 +4,7 @@
 \alias{curvature}
 \title{Sectional curvature of a rstan object for convergence diagnosis.}
 \usage{
-curvature(fit, num_cores = 4)
+curvature(fit, num_secs = 1000, num_cores = 4)
 }
 \description{
 Sectional curvature of a rstan object for convergence diagnosis.
