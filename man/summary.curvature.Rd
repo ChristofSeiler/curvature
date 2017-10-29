@@ -4,7 +4,7 @@
 \alias{summary.curvature}
 \title{Summarize curvature object.}
 \usage{
-\method{summary}{curvature}(res)
+summary.curvature(res)
 }
 \description{
 Summarize curvature object.

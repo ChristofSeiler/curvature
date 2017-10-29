@@ -1,15 +1,19 @@
 Package: curvature
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Convergence Diagnosis of Hamiltonian Monte Carlo
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Author: Christof Seiler
+Maintainer: Christof Seiler <christof.seiler@stanford.edu>
+Description: This package implements a simulatio-based curvature diagnostics.
+License: LGPL-3
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.0.1
+Imports: numDeriv,
+    parallel,
+    rstan,
+    tibble,
+    ggplot2
 Suggests: knitr,
     rmarkdown
 VignetteBuilder: knitr
