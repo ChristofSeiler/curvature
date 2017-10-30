@@ -9,11 +9,37 @@ curvature = function(fit,
                      num_secs = 1000,
                      num_cores = 4) {
 
+
+  # some initial checks
+  if(!class(fit) == "stanfit") stop("fit needs to be an rstan object")
+  if(length(fit@model_pars) > 2) stop("more than one parameter found")
+
   # extract  sectional curvature
   samples = rstan::extract(fit,permuted = FALSE)
   if(length(dimnames(samples)$chains) != 1) stop("run rstan::sampling with chains=1")
   d = dim(samples)[3]-1 # last column is lp__
+  if(get_num_upars(fit) == d) stop("only handling distributions over unbounded vectors")
   q = samples[ ,1,1:d]
+
+  # # NOT WORKING: compute gradient and Hessian in parallel
+  # par_name = fit@model_pars[1]
+  # if(is.array(fit@par_dims[par_name])) stop("parameter is an arry")
+  # func = function(x) {
+  #   y_con = NULL
+  #   if(length(fit@par_dims[par_name][[1]]) == 1) {
+  #     y_con = x
+  #   } else if(length(fit@par_dims[par_name][[1]]) == 2) {
+  #      # this is for the LKJ distribution
+  #     y_con = matrix(x,fit@par_dims$y)
+  #     ind = lower.tri(y_con)
+  #     y_con[ind] = t(y_con)[ind]
+  #     diag(y_con) = 1
+  #   }
+  #   pars = list(y_con)
+  #   names(pars) = par_name
+  #   y_unc = unconstrain_pars(fit,pars = pars)
+  #   -log_prob(fit, y_unc)
+  # }
 
   # compute gradient and Hessian in parallel
   func = function(x) { -log_prob(fit, x) }
