@@ -6,23 +6,22 @@
 #' @export
 #'
 curvature = function(fit,
+                     par = "y",
                      num_secs = 1000,
                      num_cores = 4) {
 
-
-  # some initial checks
-  if(!class(fit) == "stanfit") stop("fit needs to be an rstan object")
-  if(length(fit@model_pars) > 2) stop("more than one parameter found")
+  if(class(fit) != "stanfit") stop("fit needs to be an rstan object")
+  if(length(par) != 1) stop("define one paramter")
 
   # extract  sectional curvature
-  samples = rstan::extract(fit,permuted = FALSE)
+  samples = rstan::extract(fit, pars = par, permuted = FALSE)
   if(length(dimnames(samples)$chains) != 1) stop("run rstan::sampling with chains=1")
-  d = dim(samples)[3]-1 # last column is lp__
-  if(get_num_upars(fit) == d) stop("only handling distributions over unbounded vectors")
+  d = dim(samples)[3]
+  if(get_num_upars(fit) != d) stop("only handling distributions over unbounded vectors")
   q = samples[ ,1,1:d]
 
   # # NOT WORKING: compute gradient and Hessian in parallel
-  # par_name = fit@model_pars[1]
+  # par_name = par
   # if(is.array(fit@par_dims[par_name])) stop("parameter is an arry")
   # func = function(x) {
   #   y_con = NULL
