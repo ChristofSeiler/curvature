@@ -1,6 +1,6 @@
 # R Package `curvature`
 
-This package implements a simulatio-based approach to our NIPS paper:
+This package implements a simulation-based approach to our NIPS paper:
 
 ```
 Positive Curvature and Hamiltonian Monte Carlo 
